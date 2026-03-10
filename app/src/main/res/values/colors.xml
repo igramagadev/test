@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_green">#439A6B</color>
+    <color name="main_green_dark">#458C6C</color>
+    <color name="nav_white">#F0ECEC</color>
+    <color name="event_white">#EEECEC</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#9B4343</color>
+    <color name="text_grey">#666666</color>
+    <color name="splash_text_green">#3A9364</color>
+    <color name="bg_light_grey">#F5F5F5</color>
+    <color name="pill_grey">#F0F0F0</color>
+    <color name="transparent_white">#33FFFFFF</color>
+    <color name="nav_icon_active">#333333</color>
+    <color name="nav_icon_inactive">#999999</color>
+</resources>

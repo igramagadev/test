@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"> <LinearLayout
+    android:id="@+id/headerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="16dp">
+
+    <ImageView
+        android:id="@+id/btnCloseNewsDetail"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_btn_close"
+        android:src="@drawable/ic_close"
+        android:padding="12dp"
+        app:tint="#FFFFFF" android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_title_outline_green"
+        android:gravity="center"
+        android:text="@string/news"
+        android:textColor="@color/main_green"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="32dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivNewsDetailImage"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
+                tools:src="@drawable/img_news" />
+
+            <TextView
+                android:id="@+id/tvNewsDetailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/black" android:textSize="20sp"
+                android:textStyle="bold"
+                android:lineSpacingExtra="2dp"
+                tools:text="Женщины Якутска плетут маскировочные сетки для участников СВО" />
+
+            <TextView
+                android:id="@+id/tvNewsDetailText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/text_grey" android:textSize="15sp"
+                android:lineSpacingExtra="4dp" tools:text="Ранее наше издание подготовило репортаж о том, как женщины в Якутске изготавливали блиндажные свечи из жестяных банок, гофрированного картона (коробки) и парафина. Тут надо пояснить, что на этих свечах мобилизованные якутяне разогревают и готовят пищу, кипятят воду...\n\nА сегодня мы побываем в СОШ №5 г. Якутска, где собрались «шелкопряды»-якутянки." />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
