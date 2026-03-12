@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name="com.example.test.data.events.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,9 +26,14 @@
         </activity>
 
         <activity android:name=".ui.main.MainActivity"/>
-        <activity android:name=".ui.events.ChatActivity"/>
+        <activity android:name=".ui.chat.ChatActivity"/>
         <activity android:name=".ui.events.listEvents.ListEventsActivity"/>
-        <activity android:name=".ui.events.ProfileActivity"/>
+        <activity android:name=".ui.profile.ProfileActivity"/>
+        <activity android:name=".ui.news.NewsActivity"/>
+        <activity android:name=".ui.news.NewsDetailActivity"/>
+        <activity android:name=".ui.profile.ProfileEditActivity"/>
+        <activity android:name=".ui.events.mapEvents.MapEventsActivity"/>
+        <activity android:name=".ui.events.CreateEventActivity"/>
     </application>
 
 </manifest>

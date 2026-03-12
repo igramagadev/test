@@ -4,11 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.test"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.test"
@@ -29,6 +25,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -38,6 +35,8 @@ android {
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation("com.yandex.android:maps.mobile:4.4.1-full")
+    implementation("androidx.core:core-splashscreen:1.2.0")
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     testImplementation(libs.junit)

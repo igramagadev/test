@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.example.test.R;
-import com.example.test.ui.events.ChatActivity;
-import com.example.test.ui.events.ProfileActivity;
+import com.example.test.ui.chat.ChatActivity;
 import com.example.test.ui.events.listEvents.ListEventsActivity;
 import com.example.test.ui.main.MainActivity;
+import com.example.test.ui.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavigationHelperActivity {

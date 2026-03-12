@@ -1,4 +1,4 @@
-package com.example.test.ui.events;
+package com.example.test.ui.chat;
 
 import android.os.Bundle;
 
