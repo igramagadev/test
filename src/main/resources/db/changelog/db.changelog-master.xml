@@ -12,6 +12,8 @@
     <include file="1.0/2026-03-11--006-messages.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2026-03-11--007-news.xml" relativeToChangelogFile="true"/>
     <include file="1.0/2026-03-11--008-locations.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-12--009-authority.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-12--010-users-autority.xml" relativeToChangelogFile="true"/>
 
     <include file="data/2026-03-11--001-roles-data.xml" relativeToChangelogFile="true"/>
     <include file="data/2026-03-11--002-users-data.xml" relativeToChangelogFile="true"/>

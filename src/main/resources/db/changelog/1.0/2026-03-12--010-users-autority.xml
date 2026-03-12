@@ -3,12 +3,14 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
     <changeSet id="2026-03-12--010-users-authority" author="stelv1k">
-        <preConditions>
-            <tableExists tableName="users_authorities"/>
-        </preConditions>
+        <preConditions onFail="MARK_RAN"><not><tableExists tableName="user_authorities"/></not></preConditions>
         <createTable tableName="user_authorities">
-
+            <column name="id" type="INT" autoIncrement="true"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="user_id" type="INT"><constraints nullable="false"/></column>
+            <column name="authority_id" type="INT"><constraints nullable="false"/></column>
         </createTable>
+        <addUniqueConstraint tableName="user_authorities" columnNames="user_id,authority_id" constraintName="uk_user_authority"/>
+        <addForeignKeyConstraint baseTableName="user_authorities" baseColumnNames="user_id" constraintName="fk_user_authorities_user" referencedTableName="users" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="user_authorities" baseColumnNames="authority_id" constraintName="fk_user_authorities_authority" referencedTableName="authorities" referencedColumnNames="id"/>
     </changeSet>
-
 </databaseChangeLog>
