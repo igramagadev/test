@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="2026-03-11--004-events" author="stelv1k">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="events"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="events">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR(2000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="start_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="max_participants" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="organizer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="events"
+                baseColumnNames="organizer_id"
+                constraintName="fk_events_organizer"
+                referencedTableName="users"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

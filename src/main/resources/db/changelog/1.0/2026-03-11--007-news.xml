@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="2026-03-11--007-news" author="stelv1k">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="news"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="news">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="text" type="VARCHAR(4000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="image_url" type="VARCHAR(500)"/>
+
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="author_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="news"
+                baseColumnNames="author_id"
+                constraintName="fk_news_author"
+                referencedTableName="users"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

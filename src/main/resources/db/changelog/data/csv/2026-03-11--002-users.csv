@@ -1,0 +1,3 @@
+id,name,email,password,role_id,points,avatar_url
+1,Admin Stelv1k Igor,admin@nyxie.pro,$2a$10$hashstelv1k,2,0,5
+2,Igor Perekulimov Stelv1k,stelv1k@nyxie.pro,$2a$10$hashstelv1k,1,0,203

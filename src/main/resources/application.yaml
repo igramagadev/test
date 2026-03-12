@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: mesupport-backend
+  profiles:
+    default: dev
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db.changelog/db.changelog-master.xml
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
