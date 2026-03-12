@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import java.io.IOException;
@@ -27,10 +28,15 @@ public class ApiClient {
                         Request original = chain.request();
                         Request.Builder builder = original.newBuilder();
                         String token = sessionManager.getToken();
-                        if (token != null && !token.isEmpty()) {
+                        if (shouldAttachToken(original.url()) && token != null && !token.isEmpty()) {
                             builder.addHeader("Authorization", "Bearer " + token);
                         }
                         return chain.proceed(builder.build());
+                    }
+
+                    private boolean shouldAttachToken(HttpUrl url) {
+                        String path = url.encodedPath();
+                        return !path.contains("/auth/login") && !path.contains("/auth/register");
                     }
                 })
                 .build();

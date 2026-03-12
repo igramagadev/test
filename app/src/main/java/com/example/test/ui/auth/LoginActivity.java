@@ -24,6 +24,8 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final int MIN_PASSWORD_LENGTH = 8;
+
     private TextInputEditText etEmail;
     private TextInputEditText etPassword;
     private MaterialButton btnLogin;
@@ -61,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (password.length() < 6) {
+        if (password.length() < MIN_PASSWORD_LENGTH) {
             etPassword.setError(getString(R.string.invalid_password));
             return;
         }

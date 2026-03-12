@@ -24,6 +24,8 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static final int MIN_PASSWORD_LENGTH = 8;
+
     private ApiService apiService;
     private SessionManager sessionManager;
 
@@ -56,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                 etEmail.setError(getString(R.string.invalid_email));
                 return;
             }
-            if (password.length() < 6) {
+            if (password.length() < MIN_PASSWORD_LENGTH) {
                 etPassword.setError(getString(R.string.invalid_password));
                 return;
             }

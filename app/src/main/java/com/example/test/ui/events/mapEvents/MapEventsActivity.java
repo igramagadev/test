@@ -30,6 +30,8 @@ public class MapEventsActivity extends AppCompatActivity {
         btnTabList.setOnClickListener(v -> {
             Intent intent = new Intent(MapEventsActivity.this, ListEventsActivity.class);
             startActivity(intent);
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         NavigationHelperActivity.setupBottomNavigation(this, R.id.nav_events);
