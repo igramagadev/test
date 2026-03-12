@@ -1,9 +1,9 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.Instant;
 
 @Getter
 @Setter
@@ -12,30 +12,21 @@ import java.time.Instant;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private Double latitude;
-
-    @Column(nullable = false)
-    private Double longitude;
-
-    @Column(name = "event_date", nullable = false)
-    private Instant eventDate;
+    @Column(name = "start_date", nullable = false)
+    private LocalDateTime startDate;
 
     @Column(name = "max_participants", nullable = false)
     private Integer maxParticipants;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private EventStatus status = EventStatus.OPEN;
-
-    @Column(nullable = false)
-    private boolean deleted = false;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "organizer_id")
+    private User organizer;
 }

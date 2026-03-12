@@ -3,13 +3,11 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
     <changeSet id="2026-03-12--009-authority" author="stelv1k">
-        <createTable tableName="">
-            <column name="id" type="INT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="authority" type="VARCHAR(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
+        <preConditions onFail="MARK_RAN"><not><tableExists tableName="authorities"/></not></preConditions>
+        <createTable tableName="authorities">
+            <column name="id" type="INT" autoIncrement="true"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="authority" type="VARCHAR(255)"><constraints nullable="false" unique="true"/></column>
         </createTable>
+        <insert tableName="authorities"><column name="authority" value="BLOCKED"/></insert>
     </changeSet>
 </databaseChangeLog>

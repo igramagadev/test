@@ -2,6 +2,26 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
-    <include file="001-init.xml" relativeToChangelogFile="true"/>
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <include file="1.0/2026-03-11--001-roles.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-11--002-users.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-11--003-chats.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-11--004-events.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-11--005-registrations.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-11--006-messages.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-11--007-news.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-11--008-locations.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-12--009-authority.xml" relativeToChangelogFile="true"/>
+    <include file="1.0/2026-03-12--010-users-autority.xml" relativeToChangelogFile="true"/>
+
+    <include file="data/2026-03-11--001-roles-data.xml" relativeToChangelogFile="true"/>
+    <include file="data/2026-03-11--002-users-data.xml" relativeToChangelogFile="true"/>
+    <include file="data/2026-03-11--003-chats-data.xml" relativeToChangelogFile="true"/>
+    <include file="data/2026-03-11--004-events-data.xml" relativeToChangelogFile="true"/>
+    <include file="data/2026-03-11--005-registrations-data.xml" relativeToChangelogFile="true"/>
+    <include file="data/2026-03-11--006-messages-data.xml" relativeToChangelogFile="true"/>
+    <include file="data/2026-03-11--007-news-data.xml" relativeToChangelogFile="true"/>
+    <include file="data/2026-03-11--008-locations-data.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

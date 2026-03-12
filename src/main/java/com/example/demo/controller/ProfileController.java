@@ -1,36 +1,49 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ProfileDtos.*;
+import com.example.demo.dto.ProfileDTO;
+import com.example.demo.dto.UserDTO;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.CurrentUserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Profile")
 public class ProfileController {
     private final CurrentUserService currentUserService;
     private final UserRepository userRepository;
 
     @GetMapping("/api/profile")
-    public ProfileResponse me(){
-        User u = currentUserService.current();
-        return new ProfileResponse(u.getId(),u.getEmail(),u.getUsername(),u.getFullName(),u.getPhone(),u.getBio(),u.getRole().name(),u.getStatus().name());
+    public UserDTO myProfile() {
+        return toDto(currentUserService.getCurrentUser());
     }
 
     @PutMapping("/api/profile")
-    public ProfileResponse update(@Valid @RequestBody UpdateProfileRequest req){
-        User u = currentUserService.current();
-        u.setFullName(req.fullName()); u.setPhone(req.phone()); u.setBio(req.bio());
-        userRepository.save(u);
-        return new ProfileResponse(u.getId(),u.getEmail(),u.getUsername(),u.getFullName(),u.getPhone(),u.getBio(),u.getRole().name(),u.getStatus().name());
+    public UserDTO updateProfile(@Valid @RequestBody ProfileDTO.UpdateProfileRequest request) {
+        User user = currentUserService.getCurrentUser();
+        user.setName(request.getName());
+        user.setAvatarUrl(request.getAvatar_url());
+        userRepository.save(user);
+        return toDto(user);
     }
 
     @GetMapping("/api/users/{userId}")
-    public PublicUserResponse user(@PathVariable Long userId){
-        User u = userRepository.findById(userId).orElseThrow();
-        return new PublicUserResponse(u.getId(),u.getUsername(),u.getFullName(),u.getBio());
+    public UserDTO getPublicUser(@PathVariable Integer userId) {
+        return toDto(userRepository.findById(userId).orElseThrow());
+    }
+
+    private UserDTO toDto(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setRole_id(user.getRole().getId());
+        dto.setPoints(user.getPoints());
+        dto.setAvatar_url(user.getAvatarUrl());
+        return dto;
     }
 }

@@ -13,15 +13,29 @@ import org.springframework.stereotype.Service;
 public class JwtService {
     @Value("${security.jwt.secret}")
     private String secret;
-    @Value("${security.jwt.expiration-ms:3600000}")
+
+    @Value("${security.jwt.expiration-ms}")
     private long expirationMs;
 
-    public String generateToken(Long userId, String role) {
-        return Jwts.builder().subject(userId.toString()).claim("role", role)
-                .issuedAt(new Date()).expiration(new Date(System.currentTimeMillis() + expirationMs))
-                .signWith(key()).compact();
+    public String generateToken(String email, String role) {
+        return Jwts.builder()
+                .subject(email)
+                .claim("role", role)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expirationMs))
+                .signWith(key())
+                .compact();
     }
-    public Claims parse(String token) { return Jwts.parser().verifyWith(key()).build().parseSignedClaims(token).getPayload(); }
-    public Long extractUserId(String token) { return Long.valueOf(parse(token).getSubject()); }
-    private SecretKey key(){ return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret)); }
+
+    public String extractSubject(String token) {
+        return parse(token).getSubject();
+    }
+
+    public Claims parse(String token) {
+        return Jwts.parser().verifyWith(key()).build().parseSignedClaims(token).getPayload();
+    }
+
+    private SecretKey key() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+    }
 }

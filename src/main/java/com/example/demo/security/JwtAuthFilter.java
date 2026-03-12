@@ -9,7 +9,6 @@ import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -23,14 +22,20 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String auth = request.getHeader("Authorization");
-        if (auth == null || !auth.startsWith("Bearer ")) { filterChain.doFilter(request, response); return; }
+        if (auth == null || !auth.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String token = auth.substring(7);
         try {
-            Long userId = jwtService.extractUserId(token);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(userId.toString());
+            String email = jwtService.extractSubject(token);
+            var userDetails = userDetailsService.loadUserByUsername(email);
             var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch (JwtException | RuntimeException ignored) { }
+        } catch (JwtException | RuntimeException ignored) {
+        }
+
         filterChain.doFilter(request, response);
     }
 }

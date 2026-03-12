@@ -3,30 +3,18 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
-    <changeSet id="2026-03-11--001" author="stelv1k">
+    <changeSet id="2026-03-11--006-messages" author="stelv1k">
         <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="messages"/>
-            </not>
+            <not><tableExists tableName="messages"/></not>
         </preConditions>
-
         <createTable tableName="messages">
-            <column name="id" type="INT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="text" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="sent_at" type="TIMESTAMP"
-                    defaultValueComputed="CURRENT_TIMESTAMP">
-                <constraints nullable="false"/>
-            </column>
-            <column name="user_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="chat_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="id" type="INT" autoIncrement="true"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="text" type="VARCHAR(255)"><constraints nullable="false"/></column>
+            <column name="sent_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"><constraints nullable="false"/></column>
+            <column name="user_id" type="INT"><constraints nullable="false"/></column>
+            <column name="chat_id" type="INT"><constraints nullable="false"/></column>
         </createTable>
+        <addForeignKeyConstraint baseTableName="messages" baseColumnNames="user_id" constraintName="fk_messages_user" referencedTableName="users" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="messages" baseColumnNames="chat_id" constraintName="fk_messages_chat" referencedTableName="chats" referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

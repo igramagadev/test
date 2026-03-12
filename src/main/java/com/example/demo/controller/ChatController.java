@@ -1,51 +1,38 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ChatDtos.*;
-import com.example.demo.entity.ChatMessage;
-import com.example.demo.entity.User;
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.NotFoundException;
-import com.example.demo.repository.ChatMessageRepository;
-import com.example.demo.service.CurrentUserService;
+import com.example.demo.dto.ChatDTO;
+import com.example.demo.entity.Message;
+import com.example.demo.service.ChatService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/chat/messages")
 @RequiredArgsConstructor
+@Tag(name = "Chat")
 public class ChatController {
-    private final ChatMessageRepository repo;
-    private final CurrentUserService currentUserService;
+    private final ChatService chatService;
 
     @GetMapping
-    public List<ChatMessageResponse> list(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="20") int size){
-        return repo.findAllByDeletedFalse(PageRequest.of(page,size)).stream().map(this::map).toList();
-    }
-    @PostMapping
-    public ChatMessageResponse create(@Valid @RequestBody CreateMessageRequest req){
-        User u = currentUserService.current();
-        ChatMessage m = new ChatMessage(); m.setAuthor(u); m.setText(req.text());
-        return map(repo.save(m));
-    }
-    @PutMapping("/{id}")
-    public ChatMessageResponse update(@PathVariable Long id,@Valid @RequestBody UpdateMessageRequest req){
-        User u = currentUserService.current();
-        ChatMessage m = repo.findById(id).orElseThrow(() -> new NotFoundException("Message not found"));
-        if (!m.getAuthor().getId().equals(u.getId())) throw new BadRequestException("No rights");
-        m.setText(req.text()); m.setUpdatedAt(Instant.now());
-        return map(repo.save(m));
-    }
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
-        User u = currentUserService.current();
-        ChatMessage m = repo.findById(id).orElseThrow(() -> new NotFoundException("Message not found"));
-        if (!m.getAuthor().getId().equals(u.getId())) throw new BadRequestException("No rights");
-        m.setDeleted(true); repo.save(m);
+    public List<ChatDTO.MessageResponse> getMessages(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
+        return chatService.getMessages(page, size);
     }
 
-    private ChatMessageResponse map(ChatMessage m){ return new ChatMessageResponse(m.getId(),m.getAuthor().getId(),m.getAuthor().getUsername(),m.getText(),m.getCreatedAt(),m.getUpdatedAt()); }
+    @PostMapping
+    public ChatDTO.MessageResponse sendMessage(@Valid @RequestBody ChatDTO.MessageRequest request) {
+        return chatService.send(request);
+    }
+
+    @PutMapping("/{messageId}")
+    public ChatDTO.MessageResponse editMessage(@PathVariable Integer messageId, @Valid @RequestBody ChatDTO.MessageRequest request) {
+        return chatService.edit(messageId, request);
+    }
+
+    @DeleteMapping("/{messageId}")
+    public void deleteMessage(@PathVariable Integer messageId) {
+        chatService.delete(messageId);
+    }
 }
