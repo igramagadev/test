@@ -59,7 +59,7 @@
     <string name="main_position_school">Волонтер - ПТУ</string>
     <string name="leader_points">999999999</string>
     <string name="invalid_email">Введите корректный email</string>
-    <string name="invalid_password">Пароль должен быть не короче 6 символов</string>
+    <string name="invalid_password">Пароль должен быть не короче 8 символов</string>
     <string name="required_field">Поле обязательно для заполнения</string>
     <string name="auth_failed">Не удалось войти. Проверьте данные</string>
     <string name="register_failed">Не удалось зарегистрироваться</string>

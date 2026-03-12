@@ -52,13 +52,9 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     ProfileResponse profile = response.body();
-                    String name = profile.fullName != null ? profile.fullName : profile.name;
-                    if (name != null && !name.trim().isEmpty()) {
-                        tvName.setText(name);
-                    }
-                    if (profile.role != null && !profile.role.trim().isEmpty()) {
-                        tvBadge.setText(profile.role);
-                    }
+                    String name = valueOrDefault(profile.fullName != null ? profile.fullName : profile.name, getString(R.string.main_name));
+                    tvName.setText(name);
+                    tvBadge.setText(valueOrDefault(profile.role, getString(R.string.main_position)));
                 } else {
                     Toast.makeText(MainActivity.this, R.string.profile_load_failed, Toast.LENGTH_SHORT).show();
                 }
@@ -69,5 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String valueOrDefault(String value, String fallback) {
+        return value == null || value.trim().isEmpty() ? fallback : value;
     }
 }

@@ -58,20 +58,25 @@ public class ProfileActivity extends AppCompatActivity {
                     TextView tvInfoEdu = findViewById(R.id.tvInfoEdu);
                     TextView tvInfoEmail = findViewById(R.id.tvInfoEmail);
 
-                    String fullName = p.fullName != null ? p.fullName : p.name;
-                    if (fullName != null) {
-                        tvProfileName.setText(fullName);
-                        tvInfoName.setText(fullName);
-                    }
-                    if (p.role != null) tvProfileBadge.setText(p.role);
-                    if (p.school != null) tvInfoEdu.setText(p.school);
-                    if (p.email != null) tvInfoEmail.setText(p.email);
+                    String fullName = valueOrDefault(p.fullName != null ? p.fullName : p.name, getString(R.string.main_name));
+                    tvProfileName.setText(fullName);
+                    tvInfoName.setText(fullName);
+                    tvProfileBadge.setText(valueOrDefault(p.role, getString(R.string.main_position)));
+                    tvInfoEdu.setText(valueOrDefault(p.school, getString(R.string.main_school)));
+                    tvInfoEmail.setText(valueOrDefault(p.email, getString(R.string.main_email)));
+                } else {
+                    android.widget.Toast.makeText(ProfileActivity.this, R.string.profile_load_failed, android.widget.Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                android.widget.Toast.makeText(ProfileActivity.this, R.string.network_error, android.widget.Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String valueOrDefault(String value, String fallback) {
+        return value == null || value.trim().isEmpty() ? fallback : value;
     }
 }
