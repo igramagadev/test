@@ -1,37 +1,34 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-@Entity
-@Table(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue
-    @UuidGenerator
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, name = "password_hash")
-    private String passwordHash;
+    @Column(nullable = false)
+    private String password;
 
-    @Column(nullable = false, name = "full_name")
-    private String fullName;
-
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "role_id")
     private Role role;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(nullable = false)
+    private Integer points = 0;
+
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 }

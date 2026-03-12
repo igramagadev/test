@@ -1,17 +1,29 @@
-version: '3.8'
 services:
   postgres:
-    image: postgres:15-alpine
-    container_name: platform-postgres
+    image: postgres:16-alpine
     environment:
-      POSTGRES_USER: platform_user
-      POSTGRES_PASSWORD: platform_password
-      POSTGRES_DB: platform_db
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: mesupport
+      POSTGRES_USER: mesupport
+      POSTGRES_PASSWORD: mesupport
     volumes:
       - pgdata:/var/lib/postgresql/data
-    restart: unless-stopped
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: mesupport
+      DB_USER: mesupport
+      DB_PASSWORD: mesupport
+      JWT_SECRET: VGhpc0lzQVN1ZmZpY2llbnRseUxvbmdCYXNlNjRTZWNyZXRLZXlGb3JKV1Q=
+    ports:
+      - "8080:8080"
 
 volumes:
   pgdata:

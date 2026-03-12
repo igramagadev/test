@@ -3,13 +3,18 @@ spring:
     name: mesupport-backend
   profiles:
     default: dev
-
   liquibase:
     enabled: true
-    change-log: classpath:db.changelog/db.changelog-master.xml
-
+    change-log: classpath:db/changelog/db.changelog-master.xml
   jpa:
-    generate-ddl: false
     hibernate:
-      ddl-auto: none
-    show-sql: true
+      ddl-auto: validate
+    open-in-view: false
+
+server:
+  port: ${SERVER_PORT:8080}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:VGhpc0lzQVN1ZmZpY2llbnRseUxvbmdCYXNlNjRTZWNyZXRLZXlGb3JKV1Q=}
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}
