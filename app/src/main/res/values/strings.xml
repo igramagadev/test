@@ -58,4 +58,19 @@
     <string name="event_etc">Подробнее...</string>
     <string name="main_position_school">Волонтер - ПТУ</string>
     <string name="leader_points">999999999</string>
+    <string name="invalid_email">Введите корректный email</string>
+    <string name="invalid_password">Пароль должен быть не короче 6 символов</string>
+    <string name="required_field">Поле обязательно для заполнения</string>
+    <string name="auth_failed">Не удалось войти. Проверьте данные</string>
+    <string name="register_failed">Не удалось зарегистрироваться</string>
+    <string name="recover_sent">Письмо для восстановления отправлено</string>
+    <string name="recover_failed">Не удалось отправить запрос восстановления</string>
+    <string name="network_error">Ошибка сети. Проверьте подключение</string>
+    <string name="events_load_failed">Не удалось загрузить мероприятия</string>
+    <string name="event_joined">Вы записались на мероприятие</string>
+    <string name="event_join_failed">Не удалось записаться на мероприятие</string>
+    <string name="participants_open">Список участников пока недоступен</string>
+    <string name="news_load_failed">Не удалось загрузить новости</string>
+    <string name="empty_news_body">Текст новости отсутствует</string>
+    <string name="profile_load_failed">Не удалось загрузить профиль</string>
 </resources>

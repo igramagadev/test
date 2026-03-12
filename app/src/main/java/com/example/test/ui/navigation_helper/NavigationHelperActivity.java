@@ -24,6 +24,9 @@ public class NavigationHelperActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int id = item.getItemId();
+            if (id == selectedItemId) {
+                return true;
+            }
 
             if (id == R.id.nav_home) {
                 activity.startActivity(new Intent(activity, MainActivity.class));
